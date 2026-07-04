@@ -1053,6 +1053,23 @@
     return map[cat] || cat;
   }
 
+  // Parse YAML frontmatter from .md files (simple key: value format)
+  function parseFrontmatter(text) {
+    const match = text.match(/^---\n([\s\S]*?)\n---/);
+    if (!match) return {};
+    const obj = {};
+    match[1].split('\n').forEach(line => {
+      const i = line.indexOf(':');
+      if (i === -1) return;
+      const key = line.slice(0, i).trim();
+      let val = line.slice(i + 1).trim().replace(/^["']|["']$/g, '');
+      if (val === 'true') val = true;
+      if (val === 'false') val = false;
+      obj[key] = val;
+    });
+    return obj;
+  }
+
   function renderProduct(p) {
     const badge = p.badge && p.badge !== '' ? `<span class="prod-tag${p.badge==='New'?' new':''}">${p.badge}</span>` : '';
     const img = p.image
@@ -1081,16 +1098,22 @@
     const grid = document.getElementById('product-grid');
     const loading = document.getElementById('products-loading');
     try {
-      // Load the product index to know which files exist
       const idxRes = await fetch('/content/products/index.json');
-      const idx = await idxRes.json();
-      const slugs = Array.isArray(idx) ? idx : idx.products || [];
+      const slugs = await idxRes.json();
 
-      // Fetch each product file in parallel
+      // Try .md first, fall back to .json
       const products = await Promise.all(
-        slugs.map(slug =>
-          fetch(`/content/products/${slug}.json`).then(r => r.json()).catch(() => null)
-        )
+        slugs.map(async slug => {
+          try {
+            const r = await fetch(`/content/products/${slug}.md`);
+            if (r.ok) { const text = await r.text(); return parseFrontmatter(text); }
+          } catch(e) {}
+          try {
+            const r = await fetch(`/content/products/${slug}.json`);
+            if (r.ok) return await r.json();
+          } catch(e) {}
+          return null;
+        })
       );
 
       const available = products.filter(p => p && p.available !== false);
@@ -1100,7 +1123,6 @@
         return;
       }
 
-      // Render all products + always-last custom card
       loading.remove();
       available.forEach(p => { grid.insertAdjacentHTML('beforeend', renderProduct(p)); });
       grid.insertAdjacentHTML('beforeend', `
@@ -1120,7 +1142,7 @@
         });
       });
 
-      // Re-wire filter tabs for dynamic cards
+      // Re-wire filter tabs
       document.querySelectorAll('.filter-tab').forEach(tab => {
         tab.addEventListener('click', function() {
           document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
