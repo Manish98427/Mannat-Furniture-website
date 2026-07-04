@@ -309,6 +309,122 @@
     }
     .prod-add:hover { background: var(--walnut); }
 
+    /* ── PRODUCT DETAIL DRAWER ── */
+    .drawer-overlay {
+      display: none; position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.5); backdrop-filter: blur(3px);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .drawer-overlay.open { display: block; opacity: 1; }
+
+    .product-drawer {
+      position: fixed; top: 0; right: -100%; width: min(600px, 100vw);
+      height: 100vh; background: var(--white); z-index: 2001;
+      overflow-y: auto; transition: right 0.4s cubic-bezier(0.4,0,0.2,1);
+      display: flex; flex-direction: column;
+    }
+    .product-drawer.open { right: 0; }
+
+    .drawer-close {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px; background: var(--white);
+      border-bottom: 1px solid var(--sand);
+    }
+    .drawer-close-btn {
+      width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--sand-dark);
+      background: none; cursor: pointer; font-size: 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .drawer-close-btn:hover { background: var(--sand); }
+    .drawer-breadcrumb { font-size: 0.78rem; color: var(--text-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .drawer-image {
+      width: 100%; aspect-ratio: 4/3; background: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .drawer-image img { width: 100%; height: 100%; object-fit: cover; }
+    .drawer-image-placeholder { font-size: 5rem; opacity: 0.2; }
+
+    .drawer-body { padding: 28px 28px 40px; flex: 1; }
+
+    .drawer-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 3px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--gold); color: var(--forest); margin-bottom: 12px;
+    }
+    .drawer-category { font-size: 0.75rem; color: var(--text-light); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+    .drawer-title { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; line-height: 1.2; margin-bottom: 8px; }
+    .drawer-material { font-size: 0.875rem; color: var(--text-light); margin-bottom: 20px; }
+
+    .drawer-price-box {
+      background: var(--cream); border-radius: 6px; padding: 16px 20px;
+      display: flex; align-items: baseline; gap: 8px; margin-bottom: 24px;
+    }
+    .drawer-price { font-size: 1.6rem; font-weight: 700; color: var(--forest); }
+    .drawer-price-note { font-size: 0.85rem; color: var(--text-light); }
+
+    .drawer-availability {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; margin-bottom: 24px;
+    }
+    .drawer-avail-dot { width: 8px; height: 8px; border-radius: 50%; background: #27AE60; }
+    .drawer-avail-dot.out { background: #E74C3C; }
+
+    .drawer-description {
+      font-size: 0.9rem; line-height: 1.7; color: var(--text-mid);
+      border-top: 1px solid var(--sand); padding-top: 20px; margin-bottom: 24px;
+    }
+
+    .drawer-details {
+      border: 1px solid var(--sand); border-radius: 6px;
+      overflow: hidden; margin-bottom: 28px;
+    }
+    .drawer-details-title {
+      padding: 12px 16px; background: var(--cream);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-mid);
+    }
+    .drawer-detail-row {
+      display: flex; border-top: 1px solid var(--sand);
+    }
+    .drawer-detail-label {
+      width: 40%; padding: 11px 16px;
+      font-size: 0.82rem; color: var(--text-light); font-weight: 500;
+      border-right: 1px solid var(--sand); background: var(--cream);
+    }
+    .drawer-detail-value {
+      flex: 1; padding: 11px 16px;
+      font-size: 0.82rem; color: var(--text-dark);
+    }
+
+    .drawer-actions { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+    .drawer-btn-primary {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 15px 24px; border-radius: 4px; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; text-decoration: none; border: none;
+      background: var(--forest); color: var(--white); transition: background 0.2s;
+    }
+    .drawer-btn-primary:hover { background: var(--forest-light); }
+    .drawer-btn-secondary {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 15px 24px; border-radius: 4px; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; text-decoration: none; border: 2px solid var(--forest);
+      background: transparent; color: var(--forest); transition: all 0.2s;
+    }
+    .drawer-btn-secondary:hover { background: var(--forest); color: var(--white); }
+
+    .drawer-trust {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      border-top: 1px solid var(--sand); padding-top: 20px;
+    }
+    .drawer-trust-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; color: var(--text-light);
+    }
+
     /* Product thumb illustrations */
     .pt-sofa { background: linear-gradient(145deg, #D4C8B5 0%, #E8DFD0 100%); }
     .pt-bed { background: linear-gradient(145deg, #C8D4E0 0%, #DDEAF5 100%); }
@@ -1041,19 +1157,65 @@
   </div>
 </footer>
 
+<!-- ── PRODUCT DETAIL DRAWER ── -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="product-drawer" id="productDrawer" role="dialog" aria-modal="true" aria-label="Product details">
+
+  <div class="drawer-close">
+    <span class="drawer-breadcrumb" id="drawerBreadcrumb">Products</span>
+    <button class="drawer-close-btn" onclick="closeDrawer()" aria-label="Close">✕</button>
+  </div>
+
+  <div class="drawer-image" id="drawerImage">
+    <div class="drawer-image-placeholder">🪑</div>
+  </div>
+
+  <div class="drawer-body">
+    <div id="drawerBadge" class="drawer-badge" style="display:none;"></div>
+    <div class="drawer-category" id="drawerCategory"></div>
+    <h2 class="drawer-title" id="drawerTitle"></h2>
+    <div class="drawer-material" id="drawerMaterial"></div>
+
+    <div class="drawer-price-box">
+      <div class="drawer-price" id="drawerPrice"></div>
+      <div class="drawer-price-note" id="drawerPriceNote"></div>
+    </div>
+
+    <div class="drawer-availability" id="drawerAvailability">
+      <div class="drawer-avail-dot" id="drawerAvailDot"></div>
+      <span id="drawerAvailText"></span>
+    </div>
+
+    <div class="drawer-description" id="drawerDescription"></div>
+
+    <div class="drawer-details" id="drawerDetails">
+      <div class="drawer-details-title">Product Details</div>
+      <div id="drawerDetailRows"></div>
+    </div>
+
+    <div class="drawer-actions">
+      <a class="drawer-btn-primary" id="drawerWhatsApp" href="#" target="_blank" rel="noopener">
+        💬 Order via WhatsApp
+      </a>
+      <a class="drawer-btn-secondary" href="#contact" onclick="closeDrawer()">
+        📋 Request a Custom Quote
+      </a>
+    </div>
+
+    <div class="drawer-trust">
+      <div class="drawer-trust-item">🚚 Free delivery over NPR 50,000</div>
+      <div class="drawer-trust-item">🔨 Custom sizes available</div>
+      <div class="drawer-trust-item">✅ 1-year craftsmanship warranty</div>
+      <div class="drawer-trust-item">📐 In-home measurement service</div>
+    </div>
+  </div>
+</div>
+
 <script>
   // ── Dynamic Products Loader ──
-  function getCategoryLabel(cat) {
-    const map = {
-      'living-room': 'Living Room', 'bedroom': 'Bedroom',
-      'dining': 'Dining & Kitchen', 'hotel': 'Hotel & Resort',
-      'restaurant': 'Restaurant & Café', 'office': 'Office & Study',
-      'outdoor': 'Outdoor', 'custom': 'Custom'
-    };
-    return map[cat] || cat;
-  }
+  let _allProducts = [];
 
-  // Parse YAML frontmatter from .md files (simple key: value format)
+  // Parse YAML frontmatter from .md files
   function parseFrontmatter(text) {
     const match = text.match(/^---\n([\s\S]*?)\n---/);
     if (!match) return {};
@@ -1067,28 +1229,36 @@
       if (val === 'false') val = false;
       obj[key] = val;
     });
+    // grab image from markdown body if present
+    const imgMatch = text.match(/!\[.*?\]\((.*?)\)/);
+    if (imgMatch && !obj.image) obj.image = imgMatch[1];
     return obj;
   }
 
   function renderProduct(p) {
-    const badge = p.badge && p.badge !== '' ? `<span class="prod-tag${p.badge==='New'?' new':''}">${p.badge}</span>` : '';
+    const idx = _allProducts.length;
+    _allProducts.push(p);
+    const badge = p.badge && p.badge !== 'None' && p.badge !== ''
+      ? `<span class="prod-tag${p.badge==='New'?' new':''}">${p.badge}</span>` : '';
     const img = p.image
-      ? `<img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">`
-      : `<div style="font-size:3rem;opacity:0.3;">🪑</div>`;
+      ? `<img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;">`
+      : `<div style="font-size:3rem;opacity:0.25;">🪑</div>`;
     return `
-      <div class="product-card" data-category="${p.category || ''}">
-        <div class="product-thumb" style="${p.image ? 'padding:0;overflow:hidden;' : 'display:flex;align-items:center;justify-content:center;'}">
+      <div class="product-card" data-category="${p.category||''}" data-idx="${idx}"
+           onclick="openDrawer(_allProducts[${idx}])" role="button" tabindex="0"
+           onkeydown="if(event.key==='Enter')openDrawer(_allProducts[${idx}])">
+        <div class="product-thumb" style="${p.image?'padding:0;overflow:hidden;':'display:flex;align-items:center;justify-content:center;'}">
           ${badge}
-          <button class="prod-wishlist">♡</button>
+          <button class="prod-wishlist" onclick="event.stopPropagation();this.textContent=this.textContent==='♡'?'♥':'♡';this.style.color=this.textContent==='♥'?'#C0392B':''">♡</button>
           ${img}
         </div>
         <div class="product-info">
           <div class="prod-category">${getCategoryLabel(p.category)}</div>
           <div class="prod-name">${p.title}</div>
-          <div class="prod-mat">${p.material || ''}</div>
+          <div class="prod-mat">${p.material||''}</div>
           <div class="prod-footer">
-            <div class="prod-price">${p.price} <span>${p.price_note || ''}</span></div>
-            <button class="prod-add" onclick="this.closest('.product-card').style.outline='2px solid var(--gold)'">+</button>
+            <div class="prod-price">${p.price} <span>${p.price_note||''}</span></div>
+            <button class="prod-add" onclick="event.stopPropagation();openDrawer(_allProducts[${idx}])">→</button>
           </div>
         </div>
       </div>`;
@@ -1211,31 +1381,115 @@
     });
   }
 
-  // Load live company info (edited via /admin) into the page
+  // ── Product Drawer ──
+  let _waNumber = '';
+
+  // Load WhatsApp number from company settings
   fetch('/content/settings/company.json')
     .then(r => r.json())
     .then(c => {
+      if (c.whatsapp) _waNumber = c.whatsapp.replace(/[^0-9]/g, '');
       const setText = (id, val) => { const el = document.getElementById(id); if (el && val) el.textContent = val; };
       setText('display-phone', c.phone);
       setText('display-email', c.email);
       if (c.address1 || c.address2) {
         const addrEl = document.getElementById('display-address');
-        if (addrEl) addrEl.innerHTML = 'Mannat Furniture<br>' + (c.address1 || '') + '<br>' + (c.address2 || '');
+        if (addrEl) addrEl.innerHTML = 'Mannat Furniture<br>' + (c.address1||'') + '<br>' + (c.address2||'');
       }
       if (c.hours) {
         const hoursEl = document.getElementById('display-hours');
         if (hoursEl) hoursEl.innerHTML = 'Sunday – Friday: ' + c.hours.weekdays + '<br>Saturday: ' + c.hours.saturday;
       }
       const waLink = document.getElementById('cta-whatsapp');
-      if (waLink && c.whatsapp) waLink.href = 'https://wa.me/' + c.whatsapp.replace(/[^0-9]/g, '');
+      if (waLink && c.whatsapp) waLink.href = 'https://wa.me/' + _waNumber;
       const fb = document.getElementById('social-fb');
       if (fb && c.facebook) fb.href = c.facebook;
       const ig = document.getElementById('social-ig');
       if (ig && c.instagram) ig.href = c.instagram;
       const wa = document.getElementById('social-wa');
-      if (wa && c.whatsapp) wa.href = 'https://wa.me/' + c.whatsapp.replace(/[^0-9]/g, '');
-    })
-    .catch(() => { /* keep placeholder text if file isn't reachable yet */ });
+      if (wa && c.whatsapp) wa.href = 'https://wa.me/' + _waNumber;
+    }).catch(() => {});
+
+  function getCategoryLabel(cat) {
+    const map = {
+      'living-room':'Living Room','bedroom':'Bedroom','dining':'Dining & Kitchen',
+      'hotel':'Hotel & Resort','restaurant':'Restaurant & Café',
+      'office':'Office & Study','outdoor':'Outdoor','custom':'Custom'
+    };
+    return map[cat] || cat || '';
+  }
+
+  function openDrawer(p) {
+    // Image
+    const imgEl = document.getElementById('drawerImage');
+    imgEl.innerHTML = p.image
+      ? `<img src="${p.image}" alt="${p.title}">`
+      : `<div class="drawer-image-placeholder">🪑</div>`;
+
+    // Badge
+    const badge = document.getElementById('drawerBadge');
+    if (p.badge && p.badge !== 'None' && p.badge !== '') {
+      badge.textContent = p.badge; badge.style.display = 'inline-block';
+    } else { badge.style.display = 'none'; }
+
+    // Basic info
+    document.getElementById('drawerBreadcrumb').textContent = getCategoryLabel(p.category);
+    document.getElementById('drawerCategory').textContent = getCategoryLabel(p.category);
+    document.getElementById('drawerTitle').textContent = p.title || '';
+    document.getElementById('drawerMaterial').textContent = p.material || '';
+    document.getElementById('drawerPrice').textContent = p.price || '';
+    document.getElementById('drawerPriceNote').textContent = p.price_note ? '/ ' + p.price_note : '';
+
+    // Availability
+    const dot = document.getElementById('drawerAvailDot');
+    const txt = document.getElementById('drawerAvailText');
+    if (p.available === false || p.available === 'false') {
+      dot.className = 'drawer-avail-dot out'; txt.textContent = 'Currently unavailable — contact us for restock date';
+    } else {
+      dot.className = 'drawer-avail-dot'; txt.textContent = 'In stock — ready to order';
+    }
+
+    // Description
+    const desc = document.getElementById('drawerDescription');
+    desc.textContent = p.description || 'Contact us for full details about this product.';
+
+    // Detail rows (always show what we have)
+    const rows = document.getElementById('drawerDetailRows');
+    const details = [
+      ['Category',  getCategoryLabel(p.category)],
+      ['Material',  p.material],
+      ['Price',     p.price + (p.price_note ? ' ' + p.price_note : '')],
+      ['Delivery',  'All across Nepal · Free over NPR 50,000'],
+      ['Warranty',  '1 year craftsmanship warranty'],
+      ['Custom sizes', 'Available on request'],
+    ].filter(([,v]) => v);
+
+    rows.innerHTML = details.map(([label, value]) => `
+      <div class="drawer-detail-row">
+        <div class="drawer-detail-label">${label}</div>
+        <div class="drawer-detail-value">${value}</div>
+      </div>`).join('');
+
+    // WhatsApp order link (pre-filled message)
+    const msg = encodeURIComponent(`Hi Mannat Furniture! I'm interested in the *${p.title}* (${p.price}). Could you please share more details and availability?`);
+    const waBtn = document.getElementById('drawerWhatsApp');
+    waBtn.href = _waNumber ? `https://wa.me/${_waNumber}?text=${msg}` : '#contact';
+
+    // Open
+    document.getElementById('drawerOverlay').classList.add('open');
+    document.getElementById('productDrawer').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    document.getElementById('drawerOverlay').classList.remove('open');
+    document.getElementById('productDrawer').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
 </script>
 </body>
 </html>
